@@ -5,6 +5,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: SafeArea(child: Column(children: [],)),);
+    return  Scaffold(body: SafeArea(child: Column(children: [Container()],)),);
   }
 }
