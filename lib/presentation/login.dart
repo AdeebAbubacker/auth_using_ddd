@@ -23,11 +23,6 @@ class Login extends StatelessWidget {
       passwordController.text,
     );
 
-    Future<void> saveTokenToPrefs(String token) async {
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setString('token', token);
-    }
-
     if (response.statusCode == 200) {
       var token = response.body;
       // ignore: avoid_print
