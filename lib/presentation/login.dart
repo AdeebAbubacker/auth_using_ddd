@@ -84,7 +84,7 @@ class Login extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Text('Register'),
+                  child: const Text('Register'),
                 ),
               ],
             ),
