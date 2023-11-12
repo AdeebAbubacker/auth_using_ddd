@@ -26,6 +26,7 @@ class Login extends StatelessWidget {
     if (response.statusCode == 200) {
       var token = response.body;
  
+      // ignore: avoid_print
       print(token);
       print('Login successful!');
     } else {
