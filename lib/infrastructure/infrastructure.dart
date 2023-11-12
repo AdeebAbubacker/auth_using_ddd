@@ -21,18 +21,18 @@ class ApiService {
     );
   }
 
-  Future<http.Response> registerUser(String username, String password) async {
-    final String url = '$baseUrl/register';
+  // Future<http.Response> registerUser(String username, String password) async {
+  //   final String url = '$baseUrl/register';
 
-    final Map<String, dynamic> requestData = {
-      'username': username,
-      'password': password,
-    };
+  //   final Map<String, dynamic> requestData = {
+  //     'username': username,
+  //     'password': password,
+  //   };
 
-    return await http.post(
-      Uri.parse(url),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode(requestData),
-    );
-  }
+  //   return await http.post(
+  //     Uri.parse(url),
+  //     headers: {'Content-Type': 'application/json'},
+  //     body: json.encode(requestData),
+  //   );
+  // }
 }
