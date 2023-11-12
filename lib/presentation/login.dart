@@ -1,31 +1,26 @@
 import 'dart:convert';
+import 'package:auth_using_ddd/infrastructure/infrastructure.dart';
+import 'package:auth_using_ddd/presentation/regsiter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Login extends StatelessWidget {
+  Login({super.key});
 
-  @override
-  State<Login> createState() => _LoginState();
-}
-
-class _LoginState extends State<Login> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  // Declare requestData as a class field
+  final Map<String, dynamic> requestData = {};
+
+  final ApiService apiService = ApiService();
+
   Future<void> loginUser() async {
-    final String url = 'http://192.168.1.3:3000/login';
-
-    final Map<String, dynamic> requestData = {
-      'username': nameController.text,
-      'password': passwordController.text,
-    };
-
-    final http.Response response = await http.post(
-      Uri.parse(url),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode(requestData),
+    final http.Response response = await apiService.loginUser(
+      nameController.text,
+      passwordController.text,
     );
 
     Future<void> saveTokenToPrefs(String token) async {
@@ -36,15 +31,7 @@ class _LoginState extends State<Login> {
     if (response.statusCode == 200) {
       var token = response.body;
       // ignore: avoid_print
-      print("token");
-      // ignore: use_build_context_synchronously
-      // Navigator.push(context, MaterialPageRoute(
-      //   builder: (context) {
-      //     return const HomePage();
-      //   },
-      // ));
-      // Handle successful login
-      // ignore: avoid_print
+      print(token);
       print('Login successful!');
     } else {
       // Handle login failure
@@ -52,6 +39,8 @@ class _LoginState extends State<Login> {
       print('Login failed: ${response.body}');
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +75,28 @@ class _LoginState extends State<Login> {
               },
               child: const Text('Login'),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return RegisterPage();
+                        },
+                      ),
+                    );
+                  },
+                  child: Text('Register'),
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
 }
+
